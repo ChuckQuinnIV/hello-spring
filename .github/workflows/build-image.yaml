@@ -23,6 +23,10 @@ jobs:
       with:
         arguments: build
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag cquinniv/hello-spring:$(git rev-parse --short "$GITHUB_SHA")
-    - name: Push Docker image
-      run: docker push cquinniv/hello-spring:$(git rev-parse --short "$GITHUB_SHA")
+      run: docker build . --file Dockerfile --tag cquinniv/hello-spring:$GITHUB_SHA
+    - name: Push Docker image as SHA
+      run: docker push cquinniv/hello-spring:$GITHUB_SHA
+    - name: Tag image as latest
+      run: docker tag cquinniv/hello-spring:$GITHUB_SHA cquinniv/hello-spring:latest
+    - name: Push Docker image as latest
+      run: docker push cquinniv/hello-spring:latest
